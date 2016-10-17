@@ -1,54 +1,11 @@
 {
-  "_id":"323427575",
+  "_id":"323427583",
   "type": "client",
-  "name": "Илья Новожилов",
+  "name": "Юлия Новожилов",
   "address": "רחובות, טובה מילר 23",
-  "phone": "0547229924",
-  "visits": [
-    {
-      "start": "Sep 30 2016 09:15:00 GMT+0300 (IDT)",
-      "end": "Sep 30 2016 10:00:00 GMT+0300 (IDT)",
-      "bed": 8,
-      "notes": [
-        {
-          "author": "ilya",
-          "text": "привет илья"
-        }
-      ]
-    },
-    {
-      "start": "Sep 30 2016 10:15:00 GMT+0300 (IDT)",
-      "end": "Sep 30 2016 11:00:00 GMT+0300 (IDT)",
-      "bed": 8,
-      "notes": [
-        {
-          "author": "олег",
-          "text": "привет илья"
-        },
-        {
-          "author": "олег",
-          "text": "привет илья"
-        },
-        {
-          "author": "ilya",
-          "text": "привет 23 илья"
-        }
-      ]
-    },
-    {
-      "start": "Sep 21 2016 17:15:00 GMT+0300 (IDT)",
-      "end": "Sep 21 2016 18:30:00 GMT+0300 (IDT)",
-      "bed": 8,
-      "notes": []
-    }
-  ],
-  "notes": [
-    {
-      "author": "rom",
-      "text": "пришел пьяный и бил стекла",
-      "date": "Sep 28 2016 10:00:00 GMT+0300 (IDT)"
-    }
-  ],
+  "phone": "0544317235",
+  "visits": [ ],
+  "notes": [ ],
   "_attachments": {
     "logo.png": {
       "content-type": "image/png",

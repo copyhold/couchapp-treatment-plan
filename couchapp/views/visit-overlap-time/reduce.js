@@ -18,10 +18,10 @@
  *
  * @returns {object} Reduced values
  **/
-(function(keys, values, rereduce) {
+function(keys, values, rereduce) {
   if (rereduce) {
 
   } else {
 
   }
-})
+}

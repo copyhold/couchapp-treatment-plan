@@ -8,7 +8,7 @@
            visit: visit,
            client: {
              name: doc.name,
-             id: doc._id
+             value: doc._id
            }
          });
   });

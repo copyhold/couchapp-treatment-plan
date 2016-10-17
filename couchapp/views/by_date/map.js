@@ -5,5 +5,16 @@
  * @param {object} doc - Document Object.
  */
 (function(doc) {
-  emit(1,null)  
+  doc.visits.forEach(function(visit) {
+    var day = new Date(visit.start);
+    
+    emit([day.getFullYear(), day.getMonth(), day.getDate()],
+         {
+           visit: visit,
+           client: {
+             name: doc.name,
+             value: doc._id
+           }
+         });
+  });
 })

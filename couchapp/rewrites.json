@@ -1,0 +1,8 @@
+[
+  {
+    "from": "calendar",
+    "to": "calendar.html",
+    "method": "GET",
+    "query": {}
+  }
+]

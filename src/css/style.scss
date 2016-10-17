@@ -5,32 +5,74 @@
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; } /* HTML5 display-role reset for older browsers */ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
 
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 body {
   background: lightyellow;
-  font-size: calc(20px + 1vw);
+  font-size: calc(20px);
+  font-family: Lato, sans-serif;
 }
 
 section.beds {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: no-wrap;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-content: stretch;
+  section.time {
+    ul {
+      display: flex;
+      flex-direction: column;
+      li {
+        flex-grow: 1;
+        font-size: .5rem;
+      }
+    }
+  }
 }
-.bed {
+.beds > header {
+  flex: 0 0 auto;
+  height:2em;
+  margin: 0 0 3px 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.beds > main {
+  display: flex;
+  flex: 1 0 auto;
+}
+.beds > main > section {
   border: 1px solid red;
   border-radius: 4px;
   background: rgba(255,255,255,.3);
   margin: 3px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  &.times {
+    flex-grow: 0;
+    .list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    li {
+    }
+  }
   header {
     background: #000;
     color: #fff;
     font-weight: 700;
     text-align: center;
     padding: 5px;
+    flex-grow: 0;
   }
   .list {
+    flex: 1 0 50%;
     position: relative;
-    height: 100%;
   }
   time {
     position: absolute;
@@ -43,6 +85,55 @@ section.beds {
     }
     &.occupied {
       background: rgba(255,59,0,.8);
+    }
+  }
+  .visit {
+    height: 100%;
+    cursor: pointer;
+  }
+}
+dialog.modal {
+  min-width: 300px;
+  min-height: 400px;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background: #f8f8f8;
+  border: 8px solid #f22;
+  border-radius: 4px;
+  box-shadow: 0 0 4px 0 rgba(255,255,255,.8), 0 0 0 2000px rgba(255,255,255,.4);
+  header {
+    display: flex;
+    justify-content: space-between;
+    background: #000;
+    color: #fff;
+    text-indent: 1em;
+    .close {
+      margin: 5px;
+      background: #fff;
+      width: 20px;
+      height: 20px;
+      border: none;
+    }
+  }
+  main {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    > * {
+      margin-bottom: 1em;
+    }
+    button {
+      align-self: flex-end;
+    }
+    label {
+      display: flex;
+      input {
+        flex: 1 0 auto;
+      }
     }
   }
 }
