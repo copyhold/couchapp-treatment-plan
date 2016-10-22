@@ -13,6 +13,7 @@ body {
   font-family: Lato, sans-serif;
 }
 
+section.people,
 section.beds {
   min-height: 100vh;
   display: flex;
@@ -20,6 +21,8 @@ section.beds {
   justify-content: flex-start;
   flex-direction: column;
   align-content: stretch;
+}
+section.beds {
   section.time {
     ul {
       display: flex;
@@ -31,15 +34,18 @@ section.beds {
     }
   }
 }
-.beds > header {
+.main > header {
   flex: 0 0 auto;
   height:2em;
   margin: 0 0 3px 0;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
+  background: rgba(255,255,255,.8);
+  border-bottom: 1px solid #333;
 }
-.beds > main {
+.main > main {
   display: flex;
   flex: 1 0 auto;
 }
@@ -74,7 +80,13 @@ section.beds {
     flex: 1 0 50%;
     position: relative;
   }
-  time {
+  time,
+  .visit {
+    cursor: pointer;
+    padding: .5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     position: absolute;
     left: 3px;
     right: 3px;
@@ -86,15 +98,126 @@ section.beds {
     &.occupied {
       background: rgba(255,59,0,.8);
     }
+    span {
+      flex: 1 0 40%;
+      &.time {
+        flex: 0 0 auto;
+      }
+      &.note {
+        flex-basis: 100%;
+      }
+    }
   }
-  .visit {
-    height: 100%;
-    cursor: pointer;
+}
+.main.people {
+  main {
+    padding: 1em;
+    justify-content: flex-start;
+    > div {
+      flex: 0 1 20vw;
+      font-size: .8em;
+    }
+    h3 {
+      font-weight: bold;
+    }
+  }
+}
+.main.person {
+  main {
+    padding: 1em;
+  }
+  .persondata {
+    margin-right: 2em;
+    &:before {
+      content: 'Личные данные';
+      flex-basis: 100%;
+      font-weight: bold;
+      margin-bottom: .5em;
+    }
+  }
+}
+dl.persondata {
+  display: flex;
+  flex-wrap: wrap;
+  dt {
+    flex: 0 1 30%;
+  }
+  dd {
+    flex: 1 0 50%;
+    &.notes {
+      flex-basis: 100%;
+    }
+  }
+}
+.notes {
+  font-size: .8em;
+  flex-basis: 100%;
+  margin: 5px 0;
+  border: 1px dotted rgba(0,0,0,.5);
+  box-sizing: border-box;
+  padding: .3em;
+  border-radius: 4px;
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: .3em;
+    > * {
+      flex: 1 0 50%;
+    }
+    > span {
+      flex-basis: 100%;
+    }
+  }
+}
+.login {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  input {
+    margin: 0 0 1em 0;
+  }
+}
+.personvisits {
+  h3 {
+    margin-bottom: .5em;
+    font-weight: bold;
+  }
+  li {
+    list-style: disc;
+    margin-bottom: .5em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .notes {
+      flex: 1 0 100%;
+    }
+    > time {
+    }
+  }
+  b {
+    $color: #fd2040;
+    font-size: .9em;
+    color: $color;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath d='M466.489 224.711V128c0-47.053-38.281-85.333-85.333-85.333H130.844c-47.053 0-85.333 38.281-85.333 85.333v96.711H0v244.622h34.133v-96.711h443.733v96.711H512V224.711h-45.511zM79.644 128c0-28.232 22.968-51.2 51.2-51.2h250.311c28.232 0 51.2 22.968 51.2 51.2v96.711h-56.889V110.933H136.533v113.778H79.644V128zm261.689 17.067v79.644H170.667v-79.644h170.666zm136.534 193.422H34.133v-79.644h443.733v79.644z' fill='#{$color}'/%3E%3C/svg%3E") 0 50% no-repeat;
+    background-size: 15px auto;
+    padding: 0 0 0 18px;
+  }
+}
+nav.burg {
+  display: flex;
+  button {
+    display: none;
+  }
+  a {
+    margin: 0 1em;
+    color: #333;
   }
 }
 dialog.modal {
   min-width: 300px;
-  min-height: 400px;
   margin: 0;
   padding: 0;
   position: fixed;
@@ -108,11 +231,12 @@ dialog.modal {
   header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 40px;
     background: #000;
     color: #fff;
-    text-indent: 1em;
+    padding: 0 1em;
     .close {
-      margin: 5px;
       background: #fff;
       width: 20px;
       height: 20px;
@@ -122,12 +246,19 @@ dialog.modal {
   main {
     padding: 2em;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 20em;
     > * {
       margin-bottom: 1em;
+      flex: 1 0 90%;
     }
     button {
       align-self: flex-end;
+      flex: 1 0 40%;
+      + button {
+        margin-left: 1em;
+      }
     }
     label {
       display: flex;

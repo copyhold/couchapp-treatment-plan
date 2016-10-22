@@ -19,12 +19,25 @@ const INIT = fromJS({
       id: 8
     }
   ],
+  location: location.hash.substr(1),
+  person: {},
   visit: {},
   clients: [],
+  user: {},
   threat_length: moment.duration(40, 'minutes')
 })
 export default function(state=INIT, action) {
   switch (action.type) {
+    case 'logout ok':
+      return state.set('user', Map())
+    case 'login ok':
+      return state.set('user', fromJS(action.payload))
+    case 'person loaded':
+      return state.set('person', fromJS(action.payload))
+    case 'update person':
+      return state.merge('person', action.payload)
+    case 'route':
+      return state.set('location',action.payload.substr(1))
     case 'visit saved':
       return state.set('visit',Map())
     case 'saving visit':
@@ -36,7 +49,8 @@ export default function(state=INIT, action) {
     case 'initiate visit':
       return state.set('visit', fromJS({
         visit: fromJS(action.payload),
-        client: {}
+        client: {},
+        new: true
       }))
     case 'visits loaded':
       const bed = state.get('beds').findEntry( bed => bed.get('id')===action.payload.bed )
