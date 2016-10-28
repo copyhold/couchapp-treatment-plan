@@ -1,9 +1,11 @@
-import {createStore,applyMiddleware} from 'redux'
+import {createStore,applyMiddleware,
+        combineReducers}             from 'redux'
 import reducer                       from './reducer'
 import thunk                         from 'redux-thunk'
 import createLogger                  from 'redux-logger'
 import $                             from 'jquery'
 import {ROOT}                        from './const'
+
 
 
 export default function configureStore(initialState) {

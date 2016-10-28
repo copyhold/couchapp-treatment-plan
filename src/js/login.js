@@ -4,7 +4,7 @@ import $                    from 'jquery'
 import {HOST}               from './const'
 
 
-class LoginClass extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -37,6 +37,7 @@ class LoginClass extends React.Component {
   }
 }
 
+
 export default connect(
   null,
   (dispatch, getState) => {
@@ -44,4 +45,4 @@ export default connect(
       dispatch
     }
   }
-)(LoginClass)
+)(Login)

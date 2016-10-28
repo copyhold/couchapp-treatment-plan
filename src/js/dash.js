@@ -12,6 +12,7 @@ import Person from './person'
 import Months from './months'
 import Header from './header'
 import Login  from './login'
+
 class DashClass extends React.Component {
   constructor(props) {
     super(props)
@@ -53,6 +54,7 @@ export default connect(
   state => {
     return {
       user: state.get('user'),
+      locale: state.get('locale'),
       location: state.get('location')
     }
   },
@@ -392,7 +394,11 @@ function sign_in() {
       url: HOST + '_session',
       xhrfields: { withCredentials: true }
     })
-    .then(res => dispatch({ type: 'login ok', payload: JSON.parse(res).userCtx}))
+    .then(res => {
+      const data =  JSON.parse(res)
+      if (!data.userCtx.name) return dispatch({type: 'logout ok'})
+      dispatch({ type: 'login ok', payload: data.userCtx})
+    })
     .catch(err => dispatch({type: 'ajax error', op: 'login', payload: err }))
   }
 }

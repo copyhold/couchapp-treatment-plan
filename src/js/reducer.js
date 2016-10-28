@@ -1,5 +1,5 @@
 import {Map,List,fromJS} from 'immutable'
-import moment from 'moment'
+import moment            from 'moment'
 const INIT = fromJS({
   day: moment().startOf('day'),
   start: 16,
@@ -19,6 +19,8 @@ const INIT = fromJS({
       id: 8
     }
   ],
+  locale: localStorage.getItem('locale') || 'ru',
+  translation: {},
   location: location.hash.substr(1),
   person: {},
   visit: {},
@@ -28,6 +30,11 @@ const INIT = fromJS({
 })
 export default function(state=INIT, action) {
   switch (action.type) {
+    case 'load translation':
+      return state.set('translation',fromJS(action.payload))
+    case 'set locale':
+      localStorage.setItem('locale', action.payload)
+      return state.set('locale', action.payload)
     case 'logout ok':
       return state.set('user', Map())
     case 'login ok':

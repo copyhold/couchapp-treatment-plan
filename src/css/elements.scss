@@ -1,0 +1,118 @@
+button.close{
+  $blue: #1040ff;
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  &:hover {
+    &::before, &::after {
+      background: $blue;
+    }
+  }
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: #000;
+  }
+  &::before {
+    transform:rotate(45deg);
+  }
+  &::after {
+    transform:rotate(-45deg);
+  }
+  &.small {
+    transform:scale(.5);
+  }
+  &.big {
+    transform:scale(3);
+  }
+  &.hairline {
+    &::before, &::after {
+      height: 1px;
+    }
+  }
+  &.thick {
+    &::before, &::after {
+      height: 4px;
+      margin-top: -2px;
+    }
+  }
+  &.black {
+    &::before, &::after {
+      height: 8px;
+      margin-top: -4px;
+    }
+  }
+  &.heavy {
+    &::before, &::after {
+      height: 12px;
+      margin-top: -6px;
+    }
+  }
+  &.pointy {
+    &::Before, &::after {
+      width: 200%;
+      left: -50%;
+    }
+  }
+  &.rounded {
+    &::before, &::after {
+      border-radius: 5px;
+    }
+  }
+  &.blades {
+    &::before, &::after {
+      border-radius: 5px 0;
+    }
+  }
+  &.warp {
+    &::before, &::after {
+      border-radius: 120% 0;
+    }
+  }
+  &.fat {
+    &::before, &::after {
+      border-radius: 100%;
+    }
+  }
+}
+
+dialog {
+  padding: 1em;
+  min-width: 30em;
+  max-width: 100vw;
+  animation: show .5s ease normal;
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .close {
+    top: 0;
+    right: 0;
+    border: none;
+    background: none;
+    outline: none;
+  }
+  .content {
+  }
+}
+nav.burg {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 999;
+  a {
+    margin: 0 1em;
+    color: #333;
+  }
+}

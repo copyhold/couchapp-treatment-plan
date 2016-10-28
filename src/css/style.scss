@@ -6,6 +6,7 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; } /* HTML5 display-role reset for older browsers */ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
+@import 'elements';
 
 body {
   background: lightyellow;
@@ -121,7 +122,21 @@ section.beds {
       font-weight: bold;
     }
   }
+  #addclient {
+    * + * {
+      margin-top: 1em
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    button {
+      align-self: flex-end;
+      min-width: 5em;
+    }
+  }
 }
+
 .main.person {
   main {
     padding: 1em;
@@ -204,16 +219,6 @@ dl.persondata {
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath d='M466.489 224.711V128c0-47.053-38.281-85.333-85.333-85.333H130.844c-47.053 0-85.333 38.281-85.333 85.333v96.711H0v244.622h34.133v-96.711h443.733v96.711H512V224.711h-45.511zM79.644 128c0-28.232 22.968-51.2 51.2-51.2h250.311c28.232 0 51.2 22.968 51.2 51.2v96.711h-56.889V110.933H136.533v113.778H79.644V128zm261.689 17.067v79.644H170.667v-79.644h170.666zm136.534 193.422H34.133v-79.644h443.733v79.644z' fill='#{$color}'/%3E%3C/svg%3E") 0 50% no-repeat;
     background-size: 15px auto;
     padding: 0 0 0 18px;
-  }
-}
-nav.burg {
-  display: flex;
-  button {
-    display: none;
-  }
-  a {
-    margin: 0 1em;
-    color: #333;
   }
 }
 dialog.modal {
