@@ -106,7 +106,12 @@ dialog {
   }
   .content {
   }
+  p.alert {
+    color: red;
+    margin: .5em 0;
+  }
 }
+
 nav.burg {
   display: flex;
   justify-content: flex-end;

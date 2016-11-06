@@ -6,18 +6,13 @@ const INIT = fromJS({
   end: 22,
   revs: {},
   beds: [
-    {
-      id: 1
-    },
-    {
-      id: 2
-    },
-    {
-      id: 4
-    },
-    {
-      id: 8
-    }
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+    { id: 5 },
+    { id: 6 },
+    { id: 7 }
   ],
   locale: localStorage.getItem('locale') || 'ru',
   translation: {},
@@ -28,12 +23,14 @@ const INIT = fromJS({
   user: {},
   threat_length: moment.duration(40, 'minutes')
 })
+moment.locale(INIT.get('locale'))
 export default function(state=INIT, action) {
   switch (action.type) {
     case 'load translation':
       return state.set('translation',fromJS(action.payload))
     case 'set locale':
       localStorage.setItem('locale', action.payload)
+      moment.locale(action.payload)
       return state.set('locale', action.payload)
     case 'logout ok':
       return state.set('user', Map())

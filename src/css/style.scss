@@ -221,6 +221,95 @@ dl.persondata {
     padding: 0 0 0 18px;
   }
 }
+.main.months {
+  .changestart {
+    display: flex;
+    align-items: stretch;
+    span {
+      width: 6em;
+      text-align: center;
+    }
+    button {
+      border: none;
+      width: 20px;
+      background: 50% 50% no-repeat;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24.633565 39.999999' height='40' width='24.634'%3E%3Cpath d='M0 0c4.643 5.415 7.31 12.489 7.398 19.621C7.488 27.006 4.808 34.393 0 40l24.634-20L0 0z' fill-rule='evenodd'/%3E%3C/svg%3E");
+      background-size: auto 100%;
+    }
+    button:first-of-type {
+      transform: rotate(180deg);
+    }
+  }
+  main {
+  }
+  div.month {
+    $border: #888;
+    $height: 40px;
+    flex: 1 0 auto;
+    margin:0 1em;
+    h3 {
+      text-align: center;
+      padding: .5em;
+    }
+    i {
+      display: block;
+      text-align: center;
+      position: relative;
+      border: solid $border;
+      border-width: 0 1px 1px 1px;
+      height: $height;
+      font-size: .6em;
+      text-align: left;
+      box-sizing: border-box;
+      &:first-of-type {
+        border-top-width: 1px;
+      }
+      hr {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        bottom: 2px;
+        border: none;
+        background: green;
+        margin: 0;
+        animation: restore 1s .5s both cubic-bezier(0.43, 0.32, 0.32, 1.32);
+        transform-origin: 0 0;
+      }
+      @keyframes restore {
+        0% {
+          transform: scaleX(0);
+        }
+        100% {
+          transform: scaleX(1);
+        }
+      }
+    }
+    i:first-of-type {
+      &[data-dow="2"] {
+        margin-top: $height;
+      }
+      &[data-dow="3"] {
+        margin-top: $height * 2;
+      }
+      &[data-dow="4"] {
+        margin-top: $height * 3;
+      }
+      &[data-dow="5"] {
+        margin-top: $height * 4;
+      }
+      &[data-dow="6"] {
+        margin-top: $height * 5;
+      }
+      &[data-dow="7"] {
+        margin-top: $height * 6;
+      }
+    }
+    i[data-dow="6"] {
+      background: #000;
+      color: #fff;
+    }
+  }
+}
 dialog.modal {
   min-width: 300px;
   margin: 0;

@@ -236,7 +236,7 @@ class VisitModalClass extends React.Component {
               <label>40 <input checked={ 40==this.props.length } value="40" type="radio" name="length" onChange={this.set_length.bind(this)} /></label>
             </div>
             <textarea onChange={this.set_note.bind(this)}>{visit.get('note')}</textarea>
-            <button onClick={this.send_visit.bind(this)}>Записать</button>
+            <button disabled={this.props.overlap} onClick={this.send_visit.bind(this)}>Записать</button>
             <button onClick={this.props.hide}>Отменить</button>
           </main>
         </dialog>
@@ -245,11 +245,17 @@ class VisitModalClass extends React.Component {
 }
 const VisitModal = connect(
   state => {
-    const visit = state.get('visit'),
+    const visit = state.get('visit')
+    if (visit.isEmpty()) return {visit: Map()}
+    const bed = state.get('beds').find(bed=>bed.get('id')===visit.getIn(['visit','bed'])),
+          brothers = bed.get('visits',[]).sort((a,b) => moment(a.getIn(['visit','start'])).isBefore(b.getIn(['visit','start'])) ? -1 : 1),
+          next_visit = brothers.find(test => moment(visit.getIn(['visit','end'])).isBetween(test.getIn(['visit','start']), test.getIn(['visit','end']))),
+          prev_visit = brothers.find(test => moment(visit.getIn(['visit','start'])).isBetween(test.getIn(['visit','start']), test.getIn(['visit','end']))),
           start = moment(visit.getIn(['visit','start'])),
           end   = visit.getIn(['visit','end']),
           len   = end ? moment(end).diff(start,'minutes') : 40;
     return {
+      overlap: next_visit || prev_visit,
       length: len,
       visit: state.get('visit'),
       clients: state.get('clients')
@@ -343,7 +349,7 @@ function load_beds() {
     .catch(err => dispatch({ type: 'ajax error', op: 'beds load', payload: err}))
   }
 }
-function load_clients() {
+export function load_clients() {
   return (dispatch, getState) => {
     dispatch({type: 'loading clients'})
     return $.ajax({
@@ -382,7 +388,7 @@ function create_visit(visit) {
     payload: visit
   }
 }
-function set_day(day) {
+export function set_day(day) {
   return (dispatch, getState) => {
     dispatch({ type: 'set day', payload: day })
     return dispatch(load_beds())

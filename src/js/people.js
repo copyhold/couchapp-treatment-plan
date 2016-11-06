@@ -2,17 +2,42 @@ import {bindActionCreators} from 'redux'
 import {connect}            from 'react-redux'
 import moment               from 'moment'
 import Select               from 'react-select'
+import $                    from 'jquery'
 
 import Header         from './header'
 import {PersonalData} from './person'
+import {DESIGN}       from './const'
+import {load_clients} from './dash'
 
 class People extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       add: false,
+      error: null,
       search: ''
     }
+  }
+  submit(e) {
+    e.preventDefault()
+    const form = $(e.target)
+    const tz = this.refs.tz.value
+    $.ajax({
+      method: 'post',
+      url: `${DESIGN}/_update/add_client/${tz}`, 
+      data: form.serialize()
+    })
+    .then(res => {
+      const {error,msg} = JSON.parse(res)
+      if (error) {
+        return this.setState({error: t(msg, 'en')})
+      }
+      debugger
+      form.parents('dialog')[0].close()
+      this.props.dispatch({type: 'client added'})
+      this.props.dispatch(load_clients())
+    })
+    .catch(err => dispatch({type: 'ajax error', op: 'create client', payload: err }))
   }
   render() {
     return (
@@ -30,18 +55,22 @@ class People extends React.Component {
         <button className="close heavy small"  onClick={_=>document.getElementById('addclient').close()}></button>
         <div className="content">
           <h2>{ t('Добавить человека') }</h2>
-          <form>
-            <input placeholder={t('Имя')}     name="name" ref="name"  />
-            <input placeholder={t('Телефон')} name="name" ref="phone" />
-            <input placeholder={t('Адрес')}   name="name" ref="name"  />
+          <form onSubmit={this.submit.bind(this)}>
+            <input required placeholder={t('Теудат зеут')} name="tz"      ref="tz"    pattern="\d{9}" />
+            <input required placeholder={t('Имя')}         name="name"    ref="name"  />
+            <input required placeholder={t('Телефон')}     name="phone"   ref="phone" />
+            <input required placeholder={t('Адрес')}       name="address" ref="name"  />
             <button>OK</button>
           </form>
+          { this.state.error && <p className="alert">{this.state.error}</p> }
         </div>
       </dialog>
       </section>
     )
   }
 }
+
+
 
 function Client(props) {
   const {client,search} = props
@@ -58,6 +87,11 @@ module.exports = connect(
   state => {
     return {
       people: state.get('clients')
+    }
+  }, 
+  (dispatch, getState) => {
+    return {
+      dispatch
     }
   }
 )(People)

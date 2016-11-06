@@ -21,8 +21,7 @@ function routechange() {
   store.dispatch({ type: 'route', payload: location.hash })
 }
 routechange()
-
-window.t = function(what) {
+window.t = function(what, source='ru') {
   const locale=store.getState().get('locale')
   if (locale=='ru') return what
   return store.getState().getIn(['translation',locale,what], what)

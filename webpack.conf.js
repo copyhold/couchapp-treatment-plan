@@ -1,8 +1,9 @@
 var webpack = require('webpack')
+var isProd = process.env.NODE_ENV==='production'
 var config = {
   entry: { 
     script: './src/js/main.js',
-    vendor: ['moment','jquery']
+    vendor: ['moment','jquery','immutable','redux','react-redux','react-select']
   },
   output: {
     path: './couchapp/_attachments/js',
@@ -12,7 +13,7 @@ var config = {
     'react': 'React',
     'react-dom': 'ReactDOM'
   },
-  devtool: 'cheap-eval-source-map',
+  devtool: isProd ? 'cheap-eval' : 'eval',
   module: {
     loaders: [{
       test: /\.js?$/,
@@ -24,15 +25,22 @@ var config = {
     }]
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|il|ru)$/),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+        //'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new webpack.DefinePlugin({
-      'const': "1"
+      'isProd': isProd
     })
   ]
 }
 
 
-if (0) {
+if (isProd) {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
