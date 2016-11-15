@@ -35,7 +35,7 @@ function middleware({getState, dispatch}) {
   }
 }
 
-function load_person(id) {
+export function load_person(id) {
   return function(dispatch,getstate) {
     dispatch({type:'loading person'})
     return $.getJSON(`${ROOT}/${id}`)

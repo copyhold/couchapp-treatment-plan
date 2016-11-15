@@ -22,15 +22,15 @@ class Login extends React.Component {
       })
     })
     .then((res,status,xhr) => {
-      dispatch({type: 'login ok', payload: JSON.parse(res)})
+      dispatch({type: 'login ok', payload: (typeof res==='object' ? res : JSON.parse(res))})
     })
     .catch(err => dispatch({type: 'ajax error', op: 'login', payload: err }))
   }
   render() {
     return (
       <form className="login" onSubmit={this.submit.bind(this)}>
-        <input ref="name" required type="name" autofocus />
-        <input ref="pass" required type="password" />
+        <input placeholder={t('имя пользователя')} ref="name" required type="name" autofocus />
+        <input placeholder={t('пароль')} ref="pass" required type="password" />
         <button type="submit">OK</button>
       </form>
     )

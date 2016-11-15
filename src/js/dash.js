@@ -6,7 +6,7 @@ import {Map,fromJS}         from 'immutable'
 import classnames           from 'classnames'
 import $                    from 'jquery'
 
-import {HOST} from './const'
+import {HOST,DESIGN} from './const'
 import People from './people'
 import Person from './person'
 import Months from './months'
@@ -22,6 +22,10 @@ class DashClass extends React.Component {
     this.props.sign_in()
     this.props.load_clients()
     this.props.load_beds()
+    document.getElementById('app').setAttribute('locale', this.props.locale)
+  }
+  componentWillReceiveProps(nextprops) {
+    document.getElementById('app').setAttribute('locale', nextprops.locale)
   }
   render() {
     let out=null
@@ -220,6 +224,11 @@ class VisitModalClass extends React.Component {
             <button onClick={this.props.hide} className="close"></button>
           </header>
           <main>
+            <label style={ {display: 'flex', alignItems: "center"}}>{t('Кровать №')} 
+            <input type="number" min="1" max="7" 
+            value={visit.get('bed')} 
+            onChange={ e => this.props.update(this.props.visit.setIn(['visit','bed'], parseInt(e.target.value)))}/>
+            </label>
             <Select
             autofocus={true}
             value={client.get('value')}
@@ -319,7 +328,7 @@ function save_visit(visit) {
     dispatch({type: 'saving visit'})
     return $.ajax({
       method: 'put',
-      url: `/krovati/_design/krovati-couch/_update/add_visit/${visit.getIn(['client','value'])}`,
+      url: `${DESIGN}/_update/add_visit/${visit.getIn(['client','value'])}`,
       xhrfields: { withCredentials: true },
       data: {
         start: visit.getIn(['visit','start']).toString(),
@@ -401,7 +410,7 @@ function sign_in() {
       xhrfields: { withCredentials: true }
     })
     .then(res => {
-      const data =  JSON.parse(res)
+      const data =  typeof res==='object' ? res : JSON.parse(res)
       if (!data.userCtx.name) return dispatch({type: 'logout ok'})
       dispatch({ type: 'login ok', payload: data.userCtx})
     })

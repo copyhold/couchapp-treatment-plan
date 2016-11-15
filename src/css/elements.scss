@@ -86,8 +86,7 @@ button.close{
 
 dialog {
   padding: 1em;
-  min-width: 30em;
-  max-width: 100vw;
+  width: 50vw;
   animation: show .5s ease normal;
   @keyframes show {
     0% {
@@ -109,6 +108,14 @@ dialog {
   p.alert {
     color: red;
     margin: .5em 0;
+  }
+  input {
+    line-height: 2;
+    padding: 0 0 0 .5em;
+  }
+  button {
+    font-size: 1.1em;
+    line-height: 2;
   }
 }
 

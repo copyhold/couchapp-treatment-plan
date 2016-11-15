@@ -7,11 +7,11 @@ function Menu(props) {
   return (
         <nav className="burg">
           <a href="#people">{ t('Люди') }</a>
-          <a href="#month">Месяцы</a>
-          <a href="#day">День</a>
+          <a href="#month">{ t('Месяцы') }</a>
+          <a href="#day">{ t('День') }</a>
           <button onClick={props.log_out}>log out</button>
-          <button onClick={_ => props.set_locale('en')}>EN</button>
-          <button onClick={_ => props.set_locale('ru')}>RU</button>
+          <button onClick={_ => props.set_locale('he')}>ע</button>
+          <button onClick={_ => props.set_locale('ru')}>РУ</button>
         </nav>
   )
 }

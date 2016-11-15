@@ -28,11 +28,10 @@ class People extends React.Component {
       data: form.serialize()
     })
     .then(res => {
-      const {error,msg} = JSON.parse(res)
+      const {error,msg} = (typeof res==='object' ? res : JSON.parse(res))
       if (error) {
         return this.setState({error: t(msg, 'en')})
       }
-      debugger
       form.parents('dialog')[0].close()
       this.props.dispatch({type: 'client added'})
       this.props.dispatch(load_clients())
@@ -51,14 +50,15 @@ class People extends React.Component {
         this.props.people.map(client => <Client search={this.state.search} client={client} />)
       }
       </main>
-      <dialog id="addclient">
+      <dialog id="addclient" className="clientdialog">
         <button className="close heavy small"  onClick={_=>document.getElementById('addclient').close()}></button>
         <div className="content">
           <h2>{ t('Добавить человека') }</h2>
           <form onSubmit={this.submit.bind(this)}>
             <input required placeholder={t('Теудат зеут')} name="tz"      ref="tz"    pattern="\d{9}" />
             <input required placeholder={t('Имя')}         name="name"    ref="name"  />
-            <input required placeholder={t('Телефон')}     name="phone"   ref="phone" />
+            <input required placeholder={t('Телефон')}     name="phone"   ref="phone" type="tel" />
+            <input required placeholder={t('Эл.почта')}    name="email"   ref="email" type="email" />
             <input required placeholder={t('Адрес')}       name="address" ref="name"  />
             <button>OK</button>
           </form>

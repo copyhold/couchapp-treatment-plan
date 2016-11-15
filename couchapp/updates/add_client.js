@@ -7,6 +7,7 @@ function(doc, req) {
     _id:        params.tz,
     address:    params.address,
     phone:      params.phone,
+    email:      params.email,
     created_at: Date().toString(),
     visits: [ ],
     notes: [ ],

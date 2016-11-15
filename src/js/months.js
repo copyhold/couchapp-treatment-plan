@@ -27,7 +27,7 @@ class Months extends React.Component {
     const end = moment(this.state.start).add(5, 'month')
     $.get(`${DESIGN}/_view/day-load?group_level=3&startkey=[${this.state.start.year()},${this.state.start.month()},1]&endkey=[${end.year()},${end.month()},1]`)
     .then(res => {
-      const data = JSON.parse(res).rows
+      const data = (typeof res==='object' ? res.rows : JSON.parse(res).rows)
       var load = Map()
       data.forEach(row => {
         load = load.setIn(row.key, Map(row.value))
